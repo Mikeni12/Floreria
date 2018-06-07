@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            CRUD
+        </title>
+        <script type="text/javascript">
+            // Clase Producto (y su constructor)
+            function Producto(clveproducto, nombreproducto, precio, descripcion, existencia,Accion)
+            {
+                this.clveproducto = clveproducto;
+                this.nombreproducto = nombreproducto;
+                this.precio = precio;
+                this.descripcion = descripcion;
+                this.existencia = existencia;
+                this.Accion = Accion;
+            }
+            
+            function limpiar()
+            {
+                document.getElementById("clveproducto").value = "";
+                document.getElementById("nombreproducto").value = "";
+                document.getElementById("precio").value = "";
+                document.getElementById("descripcion").value = "";
+                document.getElementById("existencia").value = "";
+                document.getElementById("mensaje").innerHTML = "";
+            }
+
+
+            function get_XmlHttp()
+            {
+                // Crea la variable que contendrá la instancia del objeto  XMLHttpRequest (inicialmente con un valor nulo)
+                var xmlHttp = null;
+
+                if (window.XMLHttpRequest)
+
+                {// para Forefox, IE7+, Opera, Safari, ...
+                    xmlHttp = new XMLHttpRequest();
+                } else if (window.ActiveXObject)
+                {// para Internet Explorer 5 or 6
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                return xmlHttp;
+            }
+
+
+            function consulta()
+            {
+                // Obtener el objeto AJAX
+                var request = get_XmlHttp();
+                // Crear JSON
+                var producto = new Producto(form01.clveproducto.value, form01.nombreproducto.value, form01.precio.value, form01.descripcion.value, form01.existencia.value, 1);
+                var jsonProducto = JSON.stringify(producto);
+                request.open("POST", "Controlador", true);
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                var parametro = 'jsonProducto=' + encodeURIComponent(jsonProducto);
+                request.send(parametro);
+
+                request.onreadystatechange = function ()
+                {
+                    if (request.readyState == 4)
+                    {
+                        var ex_ajsn = request.responseText;
+                        var jsonRespuesta = eval("(" + ex_ajsn + ")");
+                        limpiar();
+                        // Note que ahora podemos acceder a los atributos del objeto recuperado
+                        document.getElementById("clveproducto").value = jsonRespuesta.clveproducto;
+                        document.getElementById("nombreproducto").value = jsonRespuesta.nombreproducto;
+                        document.getElementById("precio").value = jsonRespuesta.precio;
+                        document.getElementById("descripcion").value = jsonRespuesta.descripcion;
+                        document.getElementById("existencia").value = jsonRespuesta.existencia;
+                        document.getElementById("mensaje").innerHTML = jsonRespuesta.Mensaje;
+                    }
+                }
+            }
+
+
+            function agregar()
+            {
+                // Obtener el objeto AJAX
+                var request = get_XmlHttp();
+                // Crear JSON
+
+                var producto = new Producto(form01.clveproducto.value, form01.nombreproducto.value, form01.precio.value, form01.descripcion.value, form01.existencia.value, 2);
+                var jsonProducto = JSON.stringify(producto);
+
+                request.open("POST", "Controlador", true);
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                var parametro = 'jsonProducto=' + encodeURIComponent(jsonProducto);
+                request.send(parametro);
+
+                request.onreadystatechange = function ()
+                {
+                    if (request.readyState == 4)
+                    {
+                        var ex_ajsn = request.responseText;
+                        var jsonRespuesta = eval("(" + ex_ajsn + ")");
+                        limpiar();
+                        // Note que ahora podemos acceder a los atributos del objeto recuperado
+                        document.getElementById("clveproducto").value = jsonRespuesta.clveproducto;
+                        document.getElementById("nombreproducto").value = jsonRespuesta.nombreproducto;
+                        document.getElementById("precio").value = jsonRespuesta.precio;
+                        document.getElementById("descripcion").value = jsonRespuesta.descripcion;
+                        document.getElementById("existencia").value = jsonRespuesta.existencia;
+                        document.getElementById("mensaje").innerHTML = jsonRespuesta.Mensaje;
+                    }
+                }
+            }
+
+
+
+            function elimina()
+            {
+                // Obtener el objeto AJAX
+                var request = get_XmlHttp();
+                // Crear JSON
+                var producto = new Producto(form01.clveproducto.value, form01.nombreproducto.value, form01.precio.value, form01.descripcion.value, form01.existencia.value, 3);
+                var jsonProducto = JSON.stringify(producto);
+
+                request.open("POST", "Controlador", true);
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                var parametro = 'jsonProducto=' + encodeURIComponent(jsonProducto);
+                request.send(parametro);
+
+                request.onreadystatechange = function ()
+                {
+                    if (request.readyState == 4)
+                    {
+                        var ex_ajsn = request.responseText;
+                        var jsonRespuesta = eval("(" + ex_ajsn + ")");
+                        limpiar();
+                        // Note que ahora podemos acceder a los atributos del objeto recuperado
+                        document.getElementById("clveproducto").value = jsonRespuesta.clveproducto;
+                        document.getElementById("nombreproducto").value = jsonRespuesta.nombreproducto;
+                        document.getElementById("precio").value = jsonRespuesta.precio;
+                        document.getElementById("descripcion").value = jsonRespuesta.descripcion;
+                        document.getElementById("existencia").value = jsonRespuesta.existencia;
+                        document.getElementById("mensaje").innerHTML = jsonRespuesta.Mensaje;
+                    }
+                }
+            }
+            
+             function actualiza()
+            {
+                // Obtener el objeto AJAX
+                var request = get_XmlHttp();
+                // Crear JSON
+                var producto = new Producto(form01.clveproducto.value, form01.nombreproducto.value, form01.precio.value, form01.descripcion.value, form01.existencia.value, 4);
+                var jsonProducto = JSON.stringify(producto);
+
+                request.open("POST", "Controlador", true);
+                request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                var parametro = 'jsonProducto=' + encodeURIComponent(jsonProducto);
+                request.send(parametro);
+
+                request.onreadystatechange = function ()
+                {
+                    if (request.readyState == 4)
+                    {
+                        var ex_ajsn = request.responseText;
+                        var jsonRespuesta = eval("(" + ex_ajsn + ")");
+                        limpiar();
+                        // Note que ahora podemos acceder a los atributos del objeto recuperado
+                        document.getElementById("clveproducto").value = jsonRespuesta.clveproducto;
+                        document.getElementById("nombreproducto").value = jsonRespuesta.nombreproducto;
+                        document.getElementById("precio").value = jsonRespuesta.precio;
+                        document.getElementById("descripcion").value = jsonRespuesta.descripcion;
+                        document.getElementById("existencia").value = jsonRespuesta.existencia;
+                        document.getElementById("mensaje").innerHTML = jsonRespuesta.Mensaje;
+                    }
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <form  name="form01">
+            <table border=0>
+                <tr>
+                    <td>Clave producto</td>
+
+                    <td><input type="text"  id="clveproducto" value=''  /></td>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td><input type="text"  id="nombreproducto" value='' /></td>
+                </tr>
+                <tr>
+                    <td>Precio</td>
+                    <td><input type="text" id="precio"  value ='' /></td>
+                </tr>
+                <tr>
+                    <td>Descripcion</td>
+                    <td><input type="text" id="descripcion"  value ='' /></td>
+                </tr>
+                <tr>
+                    <td>Existencias</td>
+                    <td><input type="text" id="existencia"  value ='' /></td>
+                </tr>               
+                <tr>
+                    <td colspan=2 align="center">
+                        <input type="button"  value="Consulta" onClick="consulta()"/>
+                        <input type="button"  value="Actualiza" onclick="actualiza()"/>
+                        <input type="button"  value="Alta"  onclick="agregar()" />
+                        <input type="button"  value="Baja"  onclick="elimina()" />
+                        <input type="button"  value="limpiar"   onclick="limpiar()" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <h4 id="mensaje" ></h4>
+</html>

@@ -1,0 +1,85 @@
+create database tiendaflores;
+
+use tiendaflores;
+
+create table usuario(
+nombreusuario char(20) not null,
+contrasena char(20) not null,
+nombre char(15) not null,
+appat char(15) not null,
+apmat char(15),
+constraint cveusuario
+primary key(nombreusuario));
+
+
+create table cliente(
+tarjeta int(16) not null,
+estado char(15) not null,
+ciudad char(15) not null,
+municipio char(15) not null,
+colonia char(15) not null,
+calle char(15) not null,
+numext int(4) not null,
+numint int(4),
+nombreusuario char(20) not null,
+constraint cvecliente
+primary key(nombreusuario),
+constraint cveclienteusuario
+foreign key(nombreusuario) references usuario(nombreusuario));
+
+
+create table pedido(
+clvepedido int(9) not null,
+diapedido int(2) not null,
+mespedido char(3) not null,
+aniopedido int(4) not null,
+montopedido decimal(5,2) not null,
+nombreusuario char(20) not null,
+constraint cvepedido
+primary key(clvepedido),
+constraint cvepedidocliente
+foreign key(nombreusuario) references cliente(nombreusuario));
+
+
+create table envio(
+clveenvio int(9) not null,
+estado char(15) not null,
+ciudad char(15) not null,
+municipio char(15) not null,
+colonia char(15) not null,
+calle char(15) not null,
+numext int(4) not null,
+numint int(4),
+clvepedido int(9) not null,
+constraint cveenvio
+primary key(clveenvio),
+constraint cveenviopedido foreign key(clvepedido) references pedido(clvepedido));
+
+create table producto(
+clveproducto int(9) not null auto_increment,
+nombreproducto char(30) not null,
+precio decimal(5,2) not null,
+descripcion char(100),
+existencias int(3) not null,
+foto varchar(200) not null,
+categoria varchar(100) not null,
+primary key(clveproducto));
+
+create table inventario(
+existencias int(3) not null,
+clveproducto int(3) not null,
+constraint cveinventario
+primary key(clveproducto),
+constraint cveinventarioproducto
+foreign key(clveproducto) references producto(clveproducto));
+
+create table carrito(
+clveproducto'int(3) not null,
+cantidad int(3) not null,
+primary key(clveproduto),
+constraint cvecarritoproducto foreign key(clveproducto) references producto(clveproducto));
+
+
+
+
+
